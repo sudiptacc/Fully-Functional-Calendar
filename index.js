@@ -35,40 +35,53 @@ var calendarArray = getCalendarArray();
 
 function calendarChangeMonth(check) {
     if (check) {
-      const date = new Date(year, month + 1, 1)
-      const newDate = new Date(date.setMonth(date.getMonth() + 1));
-
-      month += 1;
+      date.setMonth(date.getMonth() + 1);
+      month = date.getDate();
       monthName = date.toLocaleString('default', { month: 'long' });
-      year = newDate.getFullYear();
+      year = date.getFullYear();
+      console.log(date);
       calendarArray = getCalendarArray(date);
     } else {
-        const date = new Date(year, month - 1, 1)
-        const newDate = new Date(date.setMonth(date.getMonth() - 1));
-
-      month -= 1;
+      date.setMonth(date.getMonth() - 1);
+      month = date.getDate();
       monthName = date.toLocaleString('default', { month: 'long' });
-      year = newDate.getFullYear();
+      year = date.getFullYear();
       calendarArray = getCalendarArray(date);
     }
+    renderCalendar();
   }
 
-  function renderCalendar() {
-    let calendarTop = document.getElementById('calendar-top')
-    calendarTop.textContent = `${monthName} ${year}`
-    let calendarTable = document.getElementById('calendar-table');
-      for (let i = 0; i < calendarArray.length; i++) {
-          let row = document.createElement('tr');
-          for (let j = 0; j < calendarArray[i].length; j++) {
-            let dayButton = document.createElement('button');
-            let data = document.createElement('td');
-            console.log(day);
-            dayButton.textContent = calendarArray[i][j];
-            data.appendChild(dayButton)
-            row.appendChild(data);
-          }
-          calendarTable.appendChild(row)
-        }
+function initiateCalendar() {
+  let calendarInfo = document.getElementById('calendar-info')
+  calendarInfo.textContent = `${monthName} ${year}`
+  let calendarTable = document.getElementById('calendar-table');
+  let days = ["Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"];
+  let daysRow = document.createElement("tr");
+  for (let i = 0; i < days.length; i++) {
+    let dayHeading = document.createElement('th');
+    dayHeading.textContent = days[i];
+    daysRow.appendChild(dayHeading);
   }
+  calendarTable.appendChild(daysRow);
+  for (let i = 0; i < calendarArray.length; i++) {
+      let row = document.createElement('tr');
+      for (let j = 0; j < calendarArray[i].length; j++) {
+        let dayButton = document.createElement('button');
+        let data = document.createElement('td');
+        dayButton.textContent = calendarArray[i][j];
+        data.appendChild(dayButton)
+        row.appendChild(data);
+      }
+      calendarTable.appendChild(row)
+    }
+}
 
-renderCalendar();
+function renderCalendar() {
+  let calendarTable = document.getElementById('calendar-table');
+  while (calendarTable.firstChild) {
+    calendarTable.removeChild(calendarTable.firstChild);
+  }
+  initiateCalendar();
+}
+
+initiateCalendar();

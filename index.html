@@ -9,19 +9,23 @@
 </head>
 <body>
     <div id="background"></div>
+    <!-- flex container, with calendar heading and calendar body as items-->
     <div id="calendar">
         <div id="calendar-heading">
             <h1 id="calendar-info"></h1>
             <div id="month-change-buttons">
+                <!-- button to go to previous month -->
                 <button type="button" onclick="calendarChangeMonth(false)">
                     ◄
                 </button>
+                <!-- button to go to the next month -->
                 <button type="button" onclick="calendarChangeMonth(true)">
                     ►
                 </button>
             </div>
         </div>
         <div id="calendar-main">
+            <!-- calendar body elements added in index.js -->
             <table id="calendar-table">
             </table>
         </div>

@@ -1,3 +1,7 @@
+// Mostly stolen from some other project
+// fixed to actually work though
+
+// global variables
 var date = new Date();
 var day = date.getDate();
 var month = date.getMonth();
@@ -33,6 +37,7 @@ function getCalendarArray (date = new Date()) {
 
 var calendarArray = getCalendarArray();
 
+// runs whenever the month change buttons are run
 function calendarChangeMonth(check) {
     if (check) {
       date.setMonth(date.getMonth() + 1);
@@ -51,6 +56,7 @@ function calendarChangeMonth(check) {
     renderCalendar();
   }
 
+  // function that draws the actual calendar
 function initiateCalendar() {
   let calendarInfo = document.getElementById('calendar-info')
   calendarInfo.textContent = `${monthName} ${year}`
@@ -76,8 +82,10 @@ function initiateCalendar() {
     }
 }
 
+// function is run to update the calendar with new month
 function renderCalendar() {
   let calendarTable = document.getElementById('calendar-table');
+  // removes children of table so that new information can be added
   while (calendarTable.firstChild) {
     calendarTable.removeChild(calendarTable.firstChild);
   }

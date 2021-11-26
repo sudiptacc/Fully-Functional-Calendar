@@ -2,21 +2,23 @@
 // fixed to actually work though
 
 // global variables
-var date = new Date();
+var current_date = new Date();
+var date = new Date(current_date.getFullYear(), current_date.getMonth(), 1);
 var day = date.getDate();
 var month = date.getMonth();
 var year = date.getFullYear();
 var monthName = date.toLocaleString('default', { month: 'long' });
 
-function getCalendarArray (date = new Date()) {
+function getCalendarArray (date) {
+    console.log(date)
     // Get day of the week of the first day of the month (0-6)
-    const firstDay = new Date(year, month, 1).getDay();
+    const firstDay = date.getDay();
 
     // Get number of days in the month
+    console.log(month)
     const daysInMonth = new Date(year, month + 1, 0).getDate();
-
     // Get number of rows in the calendar table
-    const dayCellsUsed = firstDay + daysInMonth;
+    const dayCellsUsed = daysInMonth + firstDay;
     const weeksInMonth = Math.ceil(dayCellsUsed / 7);
 
     const calendarArray = Array(weeksInMonth).fill();
@@ -35,20 +37,19 @@ function getCalendarArray (date = new Date()) {
     return calendarArray;
 }
 
-var calendarArray = getCalendarArray();
+var calendarArray = getCalendarArray(date);
 
 // runs whenever the month change buttons are run
 function calendarChangeMonth(check) {
     if (check) {
       date.setMonth(date.getMonth() + 1);
-      month = date.getDate();
+      month = date.getMonth();
       monthName = date.toLocaleString('default', { month: 'long' });
       year = date.getFullYear();
-      console.log(date);
       calendarArray = getCalendarArray(date);
     } else {
       date.setMonth(date.getMonth() - 1);
-      month = date.getDate();
+      month = date.getMonth();
       monthName = date.toLocaleString('default', { month: 'long' });
       year = date.getFullYear();
       calendarArray = getCalendarArray(date);
